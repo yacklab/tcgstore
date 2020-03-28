@@ -4,13 +4,13 @@ import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 import { IQuery, ICard } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { SliceStatus, AppError, AppThunk } from "../types";
 
-interface SearchState {
+interface ISearchState {
   status: SliceStatus;
   error?: AppError;
   cards: ICard[];
 }
 
-const initialState: SearchState = {
+const initialState: ISearchState = {
   status: SliceStatus.IDLE,
   error: undefined,
   cards: []
@@ -20,13 +20,13 @@ export const slice = createSlice({
   name: "searchResults",
   initialState,
   reducers: {
-    setStatus: (state: SearchState, action: PayloadAction<SliceStatus>) => {
+    setStatus: (state: ISearchState, action: PayloadAction<SliceStatus>) => {
       state.status = action.payload;
     },
-    setCards: (state: SearchState, action: PayloadAction<ICard[]>) => {
+    setCards: (state: ISearchState, action: PayloadAction<ICard[]>) => {
       state.cards = action.payload;
     },
-    pushCards: (state: SearchState, action: PayloadAction<ICard[]>) => {
+    pushCards: (state: ISearchState, action: PayloadAction<ICard[]>) => {
       state.cards.push(...action.payload);
     }
   }
@@ -39,17 +39,19 @@ export const fetchRes = (params: IQuery[]): AppThunk => (
   getState
 ) => {
   const { searchResults } = getState();
-  if (searchResults.status === SliceStatus.IDLE) {
-    dispatch(setStatus(SliceStatus.LOADING));
-    PokemonTCG.Card.where([...params, { name: "pageSize", value: 10 }]).then(
-      res => {
-        dispatch(setCards(res));
-        dispatch(setStatus(SliceStatus.IDLE));
-      }
-    );
-  } else if (process.env.NODE_ENV !== "production") {
-    throw new Error("fetchRes called while loading");
+  if (
+    process.env.NODE_ENV !== "production" &&
+    searchResults.status !== SliceStatus.IDLE
+  ) {
+    console.error("fetchRes called while loading");
   }
+  dispatch(setStatus(SliceStatus.LOADING));
+  PokemonTCG.Card.where([...params, { name: "pageSize", value: 10 }]).then(
+    res => {
+      dispatch(setCards(res));
+      dispatch(setStatus(SliceStatus.IDLE));
+    }
+  );
 };
 
 export const selectCards = (state: RootState) => state.searchResults.cards;

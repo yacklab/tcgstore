@@ -32,7 +32,7 @@ export const useStyles = makeStyles(theme => {
     title: {
       flexGrow: 1
     },
-    drawerPaper: {
+    filterDrawerPaper: {
       position: "fixed",
       top: theme.spacing(8),
       whiteSpace: "nowrap",
@@ -48,7 +48,31 @@ export const useStyles = makeStyles(theme => {
         duration: theme.transitions.duration.enteringScreen
       })
     },
-    drawerPaperClose: {
+    filterDrawerPaperClose: {
+      overflowX: "hidden",
+      transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen
+      }),
+      width: theme.spacing(0),
+      [theme.breakpoints.up("sm")]: {
+        width: theme.spacing(0)
+      }
+    },
+    detailsDrawerPaper: {
+      width: 400,
+      height: `100vh`,
+      [theme.breakpoints.down("xs")]: {
+        height: `calc(100vh - ${theme.spacing(7)}px)`,
+        top: theme.spacing(7),
+        width: `calc(100vw - ${theme.spacing(1)}px)`
+      },
+      transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen
+      })
+    },
+    detailsDrawerPaperClose: {
       overflowX: "hidden",
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
@@ -72,18 +96,23 @@ export const useStyles = makeStyles(theme => {
       padding: theme.spacing(2),
       overflow: "auto"
     },
-    container: {
-      paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4)
+    resultsWrapper: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3, 1fr)",
+      gridColumnGap: theme.spacing(1),
+      gridRowGap: theme.spacing(1),
+
+      [theme.breakpoints.down("xs")]: {
+        gridTemplateColumns: "1fr"
+      }
     },
-    paper: {
-      padding: theme.spacing(2),
-      display: "flex",
-      overflow: "auto",
-      flexDirection: "column"
+    itemAvatar: {
+      width: theme.spacing(9),
+      height: theme.spacing(9),
+      margin: "0 20px 0 0"
     },
-    fixedHeight: {
-      height: 240
+    cardItem: {
+      padding: theme.spacing(1)
     }
   };
 });

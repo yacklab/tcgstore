@@ -8,7 +8,8 @@ export interface AppError {
 export enum SliceStatus {
   IDLE = "IDLE",
   LOADING = "LOADING",
-  ERROR = "ERROR"
+  ERROR = "ERROR",
+  EMPTY = "EMPTY"
 }
 
 export type AppThunk<ReturnType = void> = ThunkAction<
