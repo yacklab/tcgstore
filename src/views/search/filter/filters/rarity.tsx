@@ -10,7 +10,7 @@ import {
 
 // TODO: Find full list https://github.com/PokemonTCG/pokemon-tcg-data ?
 
-const options = ["Common", "Uncommon", "Rare Holo", "Rare"];
+const options = ["Common", "Uncommon", "Rare Holo", "Rare", "Rare Holo EX"];
 
 const RarityFilter = () => {
   const { rarity: rarityString } = useSelector(selectParams);

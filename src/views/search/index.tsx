@@ -3,7 +3,6 @@ import Filters from "./filter";
 import { selectCards, fetchRes } from "../../app/store/slices/search-results";
 import { useSelector, useDispatch } from "react-redux";
 import Drawer from "@material-ui/core/Drawer";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 
 import clsx from "clsx";
 import { useStyles } from "../../app/styles";
@@ -89,10 +88,10 @@ const Search = () => {
             return (
               <Paper
                 onClick={() => {
-                  setDetailsDrawer(c.id);
+                  setDetailsDrawer(c.card.id);
                 }}
                 className={classes.cardItem}
-                key={c.id}
+                key={c.card.id}
                 elevation={0}
               >
                 <div
@@ -104,14 +103,15 @@ const Search = () => {
                   <Avatar
                     className={classes.itemAvatar}
                     variant="rounded"
-                    src={c.imageUrl}
+                    src={c.card.imageUrl}
                   />
                   <Typography variant="h6" component="h6">
-                    {c.name}
+                    {c.card.name}
+                    {c.price.tag}
                   </Typography>
                 </div>
-                <div>{c.types}</div>
-                <div>{c.series}</div>
+                <div>{c.card.types}</div>
+                <div>{c.card.series}</div>
               </Paper>
             );
           })}

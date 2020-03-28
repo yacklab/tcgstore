@@ -1,13 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ICard, Card } from "pokemon-tcg-sdk-typescript/dist/sdk";
+import { ICard } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { SliceStatus, AppThunk } from "../types";
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 import { RootState } from "..";
-
-interface IDetailCard {
-  status: SliceStatus;
-  card: ICard;
-}
+import makePrice from "../../services/make-price";
+import { IDetailCard } from "../../../types/app";
 
 interface ICardDetailState {
   [key: string]: IDetailCard;
@@ -19,9 +16,10 @@ export const slice = createSlice({
   name: "cardDetails",
   initialState,
   reducers: {
-    setCard: (state: ICardDetailState, action: PayloadAction<Card>) => {
+    setCard: (state: ICardDetailState, action: PayloadAction<ICard>) => {
       const { id } = action.payload;
       state[id] = {
+        price: makePrice(action.payload),
         status: SliceStatus.IDLE,
         card: action.payload
       };

@@ -3,11 +3,13 @@ import { RootState } from "..";
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 import { IQuery, ICard } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { SliceStatus, AppError, AppThunk } from "../types";
+import { IDetailCard } from "../../../types/app";
+import serializeCard from "../../services/serialize-card";
 
 interface ISearchState {
   status: SliceStatus;
   error?: AppError;
-  cards: ICard[];
+  cards: IDetailCard[];
 }
 
 const initialState: ISearchState = {
@@ -24,10 +26,10 @@ export const slice = createSlice({
       state.status = action.payload;
     },
     setCards: (state: ISearchState, action: PayloadAction<ICard[]>) => {
-      state.cards = action.payload;
+      state.cards = action.payload.map(serializeCard);
     },
     pushCards: (state: ISearchState, action: PayloadAction<ICard[]>) => {
-      state.cards.push(...action.payload);
+      state.cards.push(...action.payload.map(serializeCard));
     }
   }
 });
