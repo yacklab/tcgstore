@@ -5,6 +5,7 @@ import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 import { RootState } from "..";
 import makePrice from "../../services/make-price";
 import { IDetailCard } from "../../../types/app";
+import { searchResultSlice } from "./search-results";
 
 interface ICardDetailState {
   [key: string]: IDetailCard;
@@ -23,6 +24,21 @@ export const slice = createSlice({
         status: SliceStatus.IDLE,
         card: action.payload
       };
+    }
+  },
+  extraReducers: {
+    [searchResultSlice.actions.setCards.toString()]: (
+      state: ICardDetailState,
+      action: PayloadAction<ICard[]>
+    ) => {
+      action.payload.forEach(card => {
+        const { id } = card;
+        state[id] = {
+          price: makePrice(card),
+          status: SliceStatus.IDLE,
+          card
+        };
+      });
     }
   }
 });

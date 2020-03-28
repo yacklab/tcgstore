@@ -3,7 +3,7 @@ import Filters from "./filter";
 import { selectCards, fetchRes } from "../../app/store/slices/search-results";
 import { useSelector, useDispatch } from "react-redux";
 import Drawer from "@material-ui/core/Drawer";
-
+import Button from "@material-ui/core/Button";
 import clsx from "clsx";
 import { useStyles } from "../../app/styles";
 import useDeepCompareEffect from "../../hooks/use-deep-compare-effect";
@@ -14,6 +14,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import CardDetail from "../../containers/card-detail";
 import { useTheme } from "@material-ui/core";
+import { addToBaket } from "../../app/store/slices/basket";
 
 const Search = () => {
   const classes = useStyles();
@@ -112,6 +113,14 @@ const Search = () => {
                 </div>
                 <div>{c.card.types}</div>
                 <div>{c.card.series}</div>
+                <Button
+                  onClick={e => {
+                    e.stopPropagation();
+                    dispatch(addToBaket(c.card.id));
+                  }}
+                >
+                  add
+                </Button>
               </Paper>
             );
           })}

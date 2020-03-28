@@ -18,7 +18,7 @@ const initialState: ISearchState = {
   cards: []
 };
 
-export const slice = createSlice({
+export const searchResultSlice = createSlice({
   name: "searchResults",
   initialState,
   reducers: {
@@ -34,7 +34,7 @@ export const slice = createSlice({
   }
 });
 
-const { setStatus, setCards } = slice.actions;
+const { setStatus, setCards } = searchResultSlice.actions;
 
 export const fetchRes = (params: IQuery[]): AppThunk => (
   dispatch,
@@ -58,4 +58,4 @@ export const fetchRes = (params: IQuery[]): AppThunk => (
 
 export const selectCards = (state: RootState) => state.searchResults.cards;
 
-export default slice.reducer;
+export default searchResultSlice.reducer;

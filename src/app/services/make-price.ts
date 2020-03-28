@@ -30,9 +30,9 @@ const options: { [key: string]: { min: number; max: number } } = {
   }
 };
 
-const priceTag = (price: number) => {
+export const priceToTag = (price: number, currency: currency) => {
   const n = round(price / 100, 1).toString();
-  return `${n}${n.includes(".") ? "0" : ".00"}`;
+  return `${n}${n.includes(".") ? "0" : ".00"} ${currency}`;
 };
 
 export default function(card: ICard): ICardPrice {
@@ -49,6 +49,6 @@ export default function(card: ICard): ICardPrice {
   return {
     price,
     currency: priceCurrency,
-    tag: `${priceTag(price)} ${priceCurrency}`
+    tag: priceToTag(price, priceCurrency)
   };
 }

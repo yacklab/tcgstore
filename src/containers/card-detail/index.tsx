@@ -7,6 +7,8 @@ import {
 import { SliceStatus } from "../../app/store/types";
 import { Link } from "react-router-dom";
 import { appRoutes } from "../../app/router/routes";
+import Button from "@material-ui/core/Button";
+import { addToBaket } from "../../app/store/slices/basket";
 
 const CardDetail: React.FC<{ id: string }> = ({ id }) => {
   const cardDetail = useSelector(selectCardDetail(id));
@@ -18,8 +20,9 @@ const CardDetail: React.FC<{ id: string }> = ({ id }) => {
 
   return cardDetail.status === SliceStatus.IDLE ? (
     <div>
-      {JSON.stringify(cardDetail.card)}
+      {/* {JSON.stringify(cardDetail.card)} */}
       <Link to={appRoutes.details.getPath(id)}>go</Link>
+      <Button onClick={() => dispatch(addToBaket(id))}>add</Button>
     </div>
   ) : (
     <div>loading</div>
