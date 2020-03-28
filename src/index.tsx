@@ -7,12 +7,12 @@ import { store } from "./app/store";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <Provider store={store}>
       <CssBaseline />
       <AppRouter />
     </Provider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById("root")
 );
 

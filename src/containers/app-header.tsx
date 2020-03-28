@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useStyles } from "../app/styles";
 import AppBar from "@material-ui/core/AppBar";
 import clsx from "clsx";
@@ -11,28 +11,42 @@ import { useSelector } from "react-redux";
 import { selectPrice } from "../app/store/slices/basket";
 import Typography from "@material-ui/core/Typography";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import BasketPeek from "./basket-peek";
 
 const AppHeader = () => {
+  const [peekElAnchor, setPeekElAnchor] = useState<null | HTMLElement>(null);
   const classes = useStyles();
   const { totalPriceTag, basketCount } = useSelector(selectPrice);
 
+  const showPeek = (event: React.MouseEvent<HTMLElement>) => {
+    if (basketCount > 0) {
+      setPeekElAnchor(event.currentTarget);
+    }
+  };
+
+  const hidePeek = () => {
+    setPeekElAnchor(null);
+  };
   return (
-    <AppBar position="fixed" className={clsx(classes.appBar)} color="default">
-      <Toolbar className={classes.toolbar}>
-        <div>
-          <Link to={appRoutes.home.path}>
-            <img src="/pokestore.png" alt="" />
-          </Link>
-        </div>
-        <div></div>
-        <IconButton color="inherit">
-          <Badge badgeContent={basketCount} color="secondary">
-            <ShoppingBasketIcon />
-          </Badge>
-          <Typography>{totalPriceTag}</Typography>
-        </IconButton>
-      </Toolbar>
-    </AppBar>
+    <React.Fragment>
+      <BasketPeek anchorEl={peekElAnchor} handleClose={hidePeek} />
+      <AppBar position="fixed" className={clsx(classes.appBar)} color="default">
+        <Toolbar className={classes.toolbar}>
+          <div>
+            <Link to={appRoutes.home.path}>
+              <img src="/pokestore.png" alt="" />
+            </Link>
+          </div>
+          <div></div>
+          <IconButton color="inherit" onClick={showPeek}>
+            <Badge badgeContent={basketCount} color="secondary">
+              <ShoppingBasketIcon />
+            </Badge>
+            <Typography>{totalPriceTag}</Typography>
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
   );
 };
 
