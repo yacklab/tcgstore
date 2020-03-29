@@ -1,10 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
 import get from "lodash/get";
-import { currency, IDetailCard } from "../../../types/app";
+import { currency } from "../../../types/app";
 import { priceToTag } from "../../services/make-price";
 import reduce from "lodash/reduce";
-import keys from "lodash/keys";
 import map from "lodash/map";
 import mapValues from "lodash/mapValues";
 
@@ -120,7 +119,6 @@ export const selectBasketContent = (state: RootState) => {
 };
 
 export const selectQuantityMap = (state: RootState) => {
-  const v = mapValues(state.basket.basketItems, i => i.quantity);
   return mapValues(state.basket.basketItems, i => i.quantity);
 };
 

@@ -3,6 +3,8 @@ import Home from "../../views/home";
 import Search from "../../views/search";
 import Details from "../../views/details";
 import Basket from "../../views/basket";
+import { IQuery } from "pokemon-tcg-sdk-typescript/dist/sdk";
+import { queryToHistoryObject } from "../../views/search/use-search-params";
 
 interface IAppRoute extends RouteProps {
   path: string;
@@ -26,7 +28,8 @@ export const appRoutes: IRouteList = {
   },
   search: {
     path: "/search",
-    getPath: () => `/search`,
+    getPath: (params: IQuery[]) =>
+      `/search${queryToHistoryObject(params).search}`,
     component: Search
   },
   home: {

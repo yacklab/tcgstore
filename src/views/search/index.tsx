@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import CardDetail from "../../containers/card-detail";
 import { useTheme } from "@material-ui/core";
 import { addToBaket } from "../../app/store/slices/basket";
+import { hydrateParamState } from "../../app/store/slices/search-params";
 
 const Search = () => {
   const classes = useStyles();
@@ -26,6 +27,7 @@ const Search = () => {
   const { values: breakPoints } = useTheme().breakpoints;
 
   useDeepCompareEffect(() => {
+    dispatch(hydrateParamState(params));
     dispatch(fetchRes(params));
   }, [params]);
 
@@ -37,7 +39,7 @@ const Search = () => {
     };
     window.addEventListener("resize", resizelistener);
     return () => window.removeEventListener("resize", resizelistener);
-  }, [filterDrawerOpened, setFilterDrawer]);
+  }, [filterDrawerOpened, setFilterDrawer, breakPoints.sm]);
 
   return (
     <div>
