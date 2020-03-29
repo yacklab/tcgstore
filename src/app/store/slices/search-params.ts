@@ -28,14 +28,9 @@ function stateToQuery(state: ISearchParams): IQuery[] {
   return query;
 }
 
-function setUrl(params: IQuery[]) {
+function urlReplace(params: IQuery[]) {
   history.replace(queryToHistoryObject(params));
 }
-
-const reducer = (acc: StateSearchParams, query: IQuery): StateSearchParams => {
-  acc[query.name] = query.value;
-  return acc;
-};
 
 export const slice = createSlice({
   name: "searchParams",
@@ -54,11 +49,11 @@ export const slice = createSlice({
         typeof action.payload.value === "string" &&
         action.payload.value.length === 0
       ) {
-        delete state.params[action.payload.name];
+        delete state.params[action.payload.name]; // helo
       } else {
         state.params[action.payload.name] = action.payload.value;
       }
-      setUrl(stateToQuery(state));
+      urlReplace(stateToQuery(state));
     }
   }
 });

@@ -13,7 +13,7 @@ const Basket = () => {
     <div>
       {basketContent.map(c => {
         const q = quantityMap[c.card.id];
-        return <div>{c.price}</div>;
+        return <div>{c.price.tag}</div>;
       })}
     </div>
   );
