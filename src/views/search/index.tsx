@@ -26,7 +26,6 @@ const Search = () => {
   const { values: breakPoints } = useTheme().breakpoints;
 
   useDeepCompareEffect(() => {
-    console.log("use effect called");
     dispatch(fetchRes(params));
   }, [params]);
 
@@ -116,7 +115,7 @@ const Search = () => {
                 <Button
                   onClick={e => {
                     e.stopPropagation();
-                    dispatch(addToBaket(c.card.id));
+                    dispatch(addToBaket({ id: c.card.id }));
                   }}
                 >
                   add

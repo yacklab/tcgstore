@@ -8,7 +8,6 @@ const urlToIQuery = (string: string): IQuery[] => {
     ignoreQueryPrefix: true,
     parseArrays: true
   });
-  console.log("urlToIQuery called", res);
   return res.params || [];
 };
 

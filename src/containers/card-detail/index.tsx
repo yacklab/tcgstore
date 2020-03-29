@@ -22,7 +22,7 @@ const CardDetail: React.FC<{ id: string }> = ({ id }) => {
     <div>
       {/* {JSON.stringify(cardDetail.card)} */}
       <Link to={appRoutes.details.getPath(id)}>go</Link>
-      <Button onClick={() => dispatch(addToBaket(id))}>add</Button>
+      <Button onClick={() => dispatch(addToBaket({ id }))}>add</Button>
     </div>
   ) : (
     <div>loading</div>

@@ -30,14 +30,16 @@ const options: { [key: string]: { min: number; max: number } } = {
   }
 };
 
+const cache: any = {};
+
 export const priceToTag = (price: number, currency: currency) => {
   const n = round(price / 100, 1).toString();
   return `${n}${n.includes(".") ? "0" : ".00"} ${currency}`;
 };
 
 export default function(card: ICard): ICardPrice {
-  if (!options[card.rarity]) {
-    console.log(card.rarity);
+  if (cache[card.id]) {
+    return cache[card.id];
   }
   const price =
     random(
@@ -46,9 +48,11 @@ export default function(card: ICard): ICardPrice {
     ) * 10; // temporary random price
 
   const priceCurrency = currency.EURO;
-  return {
+  const res = {
     price,
     currency: priceCurrency,
     tag: priceToTag(price, priceCurrency)
   };
+  cache[card.id] = res;
+  return res;
 }
