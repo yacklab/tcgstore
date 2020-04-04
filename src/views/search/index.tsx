@@ -16,6 +16,8 @@ import CardDetail from "../../containers/card-detail";
 import { useTheme } from "@material-ui/core";
 import { addToBaket } from "../../app/store/slices/basket";
 import { hydrateParamState } from "../../app/store/slices/search-params";
+import { appRoutes } from "../../app/router/routes";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   const classes = useStyles();
@@ -70,7 +72,12 @@ const Search = () => {
           )
         }}
       >
-        {detailDrawerID && <CardDetail id={detailDrawerID} />}
+        {detailDrawerID && (
+          <React.Fragment>
+            <Link to={appRoutes.details.getPath(detailDrawerID)}>go</Link>
+            <CardDetail id={detailDrawerID} />
+          </React.Fragment>
+        )}
       </Drawer>
       <main className={classes.content}>
         <div

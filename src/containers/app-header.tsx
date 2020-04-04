@@ -30,7 +30,12 @@ const AppHeader = () => {
   return (
     <React.Fragment>
       <BasketPeek anchorEl={peekElAnchor} handleClose={hidePeek} />
-      <AppBar position="fixed" className={clsx(classes.appBar)} color="default">
+      <AppBar
+        position="fixed"
+        elevation={0}
+        className={clsx(classes.appBar)}
+        color="default"
+      >
         <Toolbar className={classes.toolbar}>
           <div>
             <Link to={appRoutes.home.path}>

@@ -46,9 +46,12 @@ export const slice = createSlice({
 const { setCard } = slice.actions;
 
 export const fetchCard = (id: string): AppThunk => (dispatch, getState) => {
-  PokemonTCG.Card.find(id).then(card => {
-    dispatch(setCard(card));
-  });
+  const cardDetailsStore = getState().cardDetails;
+  if (!cardDetailsStore[id]) {
+    PokemonTCG.Card.find(id).then(card => {
+      dispatch(setCard(card));
+    });
+  }
 };
 
 export const selectCardDetail = (id: string) => (state: RootState) =>

@@ -27,6 +27,10 @@ const options: { [key: string]: { min: number; max: number } } = {
   Rare: {
     min: 900,
     max: 2000
+  },
+  LEGEND: {
+    min: 900,
+    max: 2000
   }
 };
 
@@ -41,12 +45,8 @@ export default function(card: ICard): ICardPrice {
   if (cache[card.id]) {
     return cache[card.id];
   }
-  const price =
-    random(
-      options[card.rarity || "default"].min,
-      options[card.rarity || "default"].max
-    ) * 10; // temporary random price
-
+  const priceOption = options[card.rarity || "default"] || options["default"];
+  const price = random(priceOption.min, priceOption.max) * 10; // temporary random price
   const priceCurrency = currency.EURO;
   const res = {
     price,
