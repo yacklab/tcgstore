@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import {
   selectBasketContent,
-  selectQuantityMap
+  selectQuantityMap,
+  selectPrice
 } from "../../app/store/slices/basket";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -11,6 +12,7 @@ import { Link } from "react-router-dom";
 import { appRoutes } from "../../app/router/routes";
 import BasketPeekItem from "./basket-peek-item";
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 
 interface IBasketPeekProps {
   anchorEl: HTMLElement | null;
@@ -23,6 +25,7 @@ const BasketPeek: React.FunctionComponent<IBasketPeekProps> = ({
 }) => {
   const basketContent = useSelector(selectBasketContent);
   const quantityMap = useSelector(selectQuantityMap);
+  const { totalPriceTag } = useSelector(selectPrice);
   const open = Boolean(anchorEl) && Boolean(basketContent.length);
   return (
     <Menu
@@ -45,9 +48,15 @@ const BasketPeek: React.FunctionComponent<IBasketPeekProps> = ({
         );
       })}
       <MenuItem>
-        <Link onClick={handleClose} to={appRoutes.basket.path}>
-          Show cart
-        </Link>
+        <Grid container direction="column" alignItems="center">
+          <Typography
+            style={{ margin: "8px 0" }}
+            variant="body2"
+          >{`total : ${totalPriceTag}`}</Typography>
+          <Link onClick={handleClose} to={appRoutes.basket.path}>
+            Show cart
+          </Link>
+        </Grid>
       </MenuItem>
     </Menu>
   );
