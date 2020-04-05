@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICard } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { SliceStatus, AppThunk } from "../types";
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
-import { RootState } from "..";
+import { RootState } from "./root-reducer";
 import makePrice from "../../services/make-price";
 import { IDetailCard } from "../../../types/app";
 import { searchResultSlice } from "./search-results";
 
-interface ICardDetailState {
+export interface ICardDetailState {
   [key: string]: IDetailCard;
 }
 

@@ -1,5 +1,5 @@
 import { ThunkAction, Action } from "@reduxjs/toolkit";
-import { RootState } from ".";
+import { RootState } from "./slices/root-reducer";
 
 export interface AppError {
   error: string;

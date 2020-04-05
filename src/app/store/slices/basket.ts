@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "..";
+import { RootState } from "./root-reducer";
 import get from "lodash/get";
 import { currency } from "../../../types/app";
 import { priceToTag } from "../../services/make-price";
@@ -7,7 +7,7 @@ import reduce from "lodash/reduce";
 import map from "lodash/map";
 import mapValues from "lodash/mapValues";
 
-interface IBasketState {
+export interface IBasketState {
   basketItems: IBasketItems;
   currency: currency;
 }

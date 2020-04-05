@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "..";
+import { RootState } from "./root-reducer";
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 import { IQuery, ICard } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { SliceStatus, AppError, AppThunk } from "../types";
@@ -7,7 +7,7 @@ import { IDetailCard } from "../../../types/app";
 import serializeCard from "../../services/serialize-card";
 import getDefaultPageSize from "../../services/get-default-page-size";
 
-interface ISearchState {
+export interface ISearchState {
   status: SliceStatus;
   error?: AppError;
   cards: IDetailCard[];

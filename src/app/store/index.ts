@@ -1,16 +1,16 @@
-import { configureStore } from "@reduxjs/toolkit";
-import searchResultsReducer from "./slices/search-results";
-import searchParamsReducer from "./slices/search-params";
-import cardDetailsReducer from "./slices/card-details";
-import basketReducer from "./slices/basket";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import rootReducer from "./slices/root-reducer";
 
-export const store = configureStore({
-  reducer: {
-    searchResults: searchResultsReducer,
-    searchParams: searchParamsReducer,
-    cardDetails: cardDetailsReducer,
-    basket: basketReducer
+export default function configureAppStore(preloadedState?: any) {
+  const store = configureStore({
+    middleware: [...getDefaultMiddleware()],
+    reducer: rootReducer
+  });
+
+  if (process.env.NODE_ENV !== "production" && module.hot) {
+    module.hot.accept("./slices/root-reducer", () => {
+      store.replaceReducer(rootReducer);
+    });
   }
-});
-
-export type RootState = ReturnType<typeof store.getState>;
+  return store;
+}

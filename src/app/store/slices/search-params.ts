@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SliceStatus } from "../types";
 import { IQuery } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { history } from "../../router";
-import { RootState } from "..";
+import { RootState } from "./root-reducer";
 import { queryToHistoryObject } from "../../../views/search/use-search-params";
 import get from "lodash/get";
 
 type StateSearchParams = { [key: string]: string | number };
-
-interface ISearchParams {
+//in
+export interface ISearchParams {
   status: SliceStatus;
   params: StateSearchParams;
 }

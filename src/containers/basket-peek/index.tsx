@@ -30,14 +30,6 @@ const BasketPeek: React.FunctionComponent<IBasketPeekProps> = ({
       anchorEl={anchorEl}
       keepMounted
       open={open}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "center"
-      }}
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right"
-      }}
       onClose={handleClose}
       TransitionComponent={Fade}
     >
