@@ -23,15 +23,12 @@ export const useStyles = makeStyles(theme => {
     appBar: {
       zIndex: theme.zIndex.appBar
     },
-    menuButton: {
-      marginRight: 36
+    appBarSearch: {
+      [theme.breakpoints.down("xs")]: {
+        display: "none"
+      }
     },
-    menuButtonHidden: {
-      display: "none"
-    },
-    title: {
-      flexGrow: 1
-    },
+
     filterDrawerPaper: {
       position: "fixed",
       top: theme.spacing(8),

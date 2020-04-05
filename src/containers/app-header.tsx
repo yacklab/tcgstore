@@ -12,6 +12,8 @@ import { selectPrice } from "../app/store/slices/basket";
 import Typography from "@material-ui/core/Typography";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import BasketPeek from "./basket-peek";
+import SearchInput from "./search-input";
+import Box from "@material-ui/core/Box";
 
 const AppHeader = () => {
   const [peekElAnchor, setPeekElAnchor] = useState<null | HTMLElement>(null);
@@ -42,7 +44,9 @@ const AppHeader = () => {
               <img src="/pokestore.png" alt="" />
             </Link>
           </div>
-          <div></div>
+          <Box className={classes.appBarSearch}>
+            <SearchInput />
+          </Box>
           <IconButton color="inherit" onClick={showPeek}>
             <Badge badgeContent={basketCount} color="secondary">
               <ShoppingBasketIcon />

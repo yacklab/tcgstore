@@ -2,6 +2,7 @@ import React from "react";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import Typography from "@material-ui/core/Typography";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setSearchParam,
@@ -10,7 +11,14 @@ import {
 
 // TODO: Find full list https://github.com/PokemonTCG/pokemon-tcg-data ?
 
-const options = ["Common", "Uncommon", "Rare Holo", "Rare", "Rare Holo EX"];
+const options = [
+  "Common",
+  "Uncommon",
+  "Rare Holo",
+  "Rare",
+  "Rare Holo EX",
+  "LEGEND"
+];
 
 const RarityFilter = () => {
   const { rarity: rarityString } = useSelector(selectParams);
@@ -39,6 +47,9 @@ const RarityFilter = () => {
 
   return (
     <FormGroup>
+      <Typography style={{ padding: "8px 0" }} variant="h6">
+        Rarity
+      </Typography>
       {options.map((o: string, index: number) => (
         <FormControlLabel
           key={index}

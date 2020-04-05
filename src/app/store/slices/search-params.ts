@@ -4,6 +4,7 @@ import { IQuery } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { history } from "../../router";
 import { RootState } from "..";
 import { queryToHistoryObject } from "../../../views/search/use-search-params";
+import get from "lodash/get";
 
 type StateSearchParams = { [key: string]: string | number };
 
@@ -49,7 +50,7 @@ export const slice = createSlice({
         typeof action.payload.value === "string" &&
         action.payload.value.length === 0
       ) {
-        delete state.params[action.payload.name]; // helo
+        delete state.params[action.payload.name];
       } else {
         state.params[action.payload.name] = action.payload.value;
       }
@@ -61,5 +62,7 @@ export const slice = createSlice({
 export const { setSearchParam, hydrateParamState } = slice.actions;
 
 export const selectParams = (state: RootState) => state.searchParams.params;
+export const selectNameParam = (state: RootState) =>
+  `${get(state, "searchParams.params.name", "")}`;
 
 export default slice.reducer;
