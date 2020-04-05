@@ -12,35 +12,48 @@ import {
 // TODO: Find full list https://github.com/PokemonTCG/pokemon-tcg-data ?
 
 const options = [
-  "Common",
-  "Uncommon",
-  "Rare Holo",
-  "Rare",
-  "Rare Holo EX",
-  "LEGEND"
+  "EX",
+  "Special",
+  "Restored",
+  "Level Up",
+  "MEGA",
+  "Technical Machine",
+  "Item",
+  "Stadium",
+  "Supporter",
+  "Stage 1",
+  "GX",
+  "Pokémon Tool",
+  "Basic",
+  "LEGEND",
+  "Stage 2",
+  "BREAK",
+  "Rocket's Secret Machine"
 ];
 
-const RarityFilter = () => {
-  const { rarity: rarityString } = useSelector(selectParams);
+const SubtypeFilter = () => {
+  const { subtype: subtypeString } = useSelector(selectParams);
   const dispatch = useDispatch();
-  let rarities: string[];
-  if (rarityString && typeof rarityString === "string") {
-    rarities = rarityString.split("|");
+  let subtype: string[];
+  if (subtypeString && typeof subtypeString === "string") {
+    subtype = subtypeString.split("|");
   }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       dispatch(
         setSearchParam({
-          name: "rarity",
-          value: rarityString
-            ? `${rarityString}|${event.target.name}`
+          name: "subtype",
+          value: subtypeString
+            ? `${subtypeString}|${event.target.name}`
             : event.target.name
         })
       );
     } else {
-      if (rarities) {
-        const filtered = rarities.filter(v => v !== event.target.name);
-        dispatch(setSearchParam({ name: "rarity", value: filtered.join("|") }));
+      if (subtype) {
+        const filtered = subtype.filter(v => v !== event.target.name);
+        dispatch(
+          setSearchParam({ name: "subtype", value: filtered.join("|") })
+        );
       }
     }
   };
@@ -52,7 +65,7 @@ const RarityFilter = () => {
           key={index}
           control={
             <Checkbox
-              checked={!!rarities && rarities.includes(o)}
+              checked={!!subtype && subtype.includes(o)}
               onChange={handleChange}
               name={o}
             />
@@ -64,4 +77,4 @@ const RarityFilter = () => {
   );
 };
 
-export default RarityFilter;
+export default SubtypeFilter;
