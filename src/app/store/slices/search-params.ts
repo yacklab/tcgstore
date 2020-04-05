@@ -41,6 +41,7 @@ export const slice = createSlice({
       state: ISearchParams,
       action: PayloadAction<IQuery[]>
     ) => {
+      state.params.page = 1;
       action.payload.forEach(query => {
         state.params[query.name] = query.value;
       });
@@ -62,6 +63,8 @@ export const slice = createSlice({
 export const { setSearchParam, hydrateParamState } = slice.actions;
 
 export const selectParams = (state: RootState) => state.searchParams.params;
+export const selectPage = (state: RootState) =>
+  get(state, "searchParams.params.page", 1) as number;
 export const selectNameParam = (state: RootState) =>
   `${get(state, "searchParams.params.name", "")}`;
 

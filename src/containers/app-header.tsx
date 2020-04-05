@@ -31,7 +31,6 @@ const AppHeader = () => {
   };
   return (
     <React.Fragment>
-      <BasketPeek anchorEl={peekElAnchor} handleClose={hidePeek} />
       <AppBar
         position="fixed"
         elevation={0}
@@ -48,13 +47,14 @@ const AppHeader = () => {
             <SearchInput />
           </Box>
           <IconButton color="inherit" onClick={showPeek}>
-            <Badge badgeContent={basketCount} color="secondary">
+            <Badge badgeContent={basketCount} color="primary">
               <ShoppingBasketIcon />
             </Badge>
             <Typography>{totalPriceTag}</Typography>
           </IconButton>
         </Toolbar>
       </AppBar>
+      <BasketPeek anchorEl={peekElAnchor} handleClose={hidePeek} />
     </React.Fragment>
   );
 };

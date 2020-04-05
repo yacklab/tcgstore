@@ -17,6 +17,7 @@ import SearchItem from "./search-item";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
+import Pagination from "../../containers/pagination";
 
 const Search = () => {
   const cards = useSelector(selectCards);
@@ -99,6 +100,9 @@ const Search = () => {
           {cards.map(c => (
             <SearchItem card={c} key={c.card.id} onClick={setDetailsDrawer} />
           ))}
+        </div>
+        <div style={{ width: "100%", textAlign: "center" }}>
+          <Pagination />
         </div>
       </main>
     </div>

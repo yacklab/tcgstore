@@ -5,6 +5,7 @@ import { IQuery, ICard } from "pokemon-tcg-sdk-typescript/dist/sdk";
 import { SliceStatus, AppError, AppThunk } from "../types";
 import { IDetailCard } from "../../../types/app";
 import serializeCard from "../../services/serialize-card";
+import getDefaultPageSize from "../../services/get-default-page-size";
 
 interface ISearchState {
   status: SliceStatus;
@@ -17,6 +18,8 @@ const initialState: ISearchState = {
   error: undefined,
   cards: []
 };
+
+const PAGE_SIZE = getDefaultPageSize();
 
 export const searchResultSlice = createSlice({
   name: "searchResults",
@@ -48,14 +51,20 @@ export const fetchRes = (params: IQuery[]): AppThunk => (
     console.error("fetchRes called while loading");
   }
   dispatch(setStatus(SliceStatus.LOADING));
-  PokemonTCG.Card.where([...params, { name: "pageSize", value: 10 }]).then(
-    res => {
-      dispatch(setCards(res));
+  PokemonTCG.Card.where([
+    ...params,
+    { name: "pageSize", value: PAGE_SIZE }
+  ]).then(res => {
+    dispatch(setCards(res));
+    if (res.length > 0) {
       dispatch(setStatus(SliceStatus.IDLE));
+    } else {
+      dispatch(setStatus(SliceStatus.EMPTY));
     }
-  );
+  });
 };
 
 export const selectCards = (state: RootState) => state.searchResults.cards;
+export const selectStatus = (state: RootState) => state.searchResults.status;
 
 export default searchResultSlice.reducer;
