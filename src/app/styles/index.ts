@@ -101,18 +101,36 @@ export const useStyles = makeStyles(theme => {
       gridTemplateColumns: "repeat(3, 1fr)",
       gridColumnGap: theme.spacing(1),
       gridRowGap: theme.spacing(1),
-
+      [theme.breakpoints.down("md")]: {
+        gridTemplateColumns: "repeat(2, 1fr)"
+      },
+      [theme.breakpoints.down("sm")]: {
+        gridTemplateColumns: "1fr"
+      },
       [theme.breakpoints.down("xs")]: {
         gridTemplateColumns: "1fr"
       }
     },
-    itemAvatar: {
-      width: theme.spacing(9),
-      height: theme.spacing(9),
-      margin: "0 20px 0 0"
+    searchItem: {
+      flexGrow: 1
     },
-    cardItem: {
-      padding: theme.spacing(1)
+    searchItemPaper: {
+      padding: theme.spacing(2),
+      height: "100%",
+      width: "100%"
+    },
+    searchItemImage: {
+      width: 128,
+      height: "auto",
+      [theme.breakpoints.down("xs")]: {
+        width: 64
+      }
+    },
+    searchItemImg: {
+      margin: "auto",
+      display: "block",
+      maxWidth: "100%",
+      maxHeight: "100%"
     }
   };
 });

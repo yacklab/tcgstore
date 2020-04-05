@@ -3,30 +3,28 @@ import Filters from "./filter";
 import { selectCards, fetchRes } from "../../app/store/slices/search-results";
 import { useSelector, useDispatch } from "react-redux";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 import clsx from "clsx";
 import { useStyles } from "../../app/styles";
 import useDeepCompareEffect from "../../hooks/use-deep-compare-effect";
 import useSearchParams from "./use-search-params";
-import Paper from "@material-ui/core/Paper";
 
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
 import CardDetail from "../../containers/card-detail";
 import { useTheme } from "@material-ui/core";
-import { addToBaket } from "../../app/store/slices/basket";
 import { hydrateParamState } from "../../app/store/slices/search-params";
 import { appRoutes } from "../../app/router/routes";
 import { Link } from "react-router-dom";
+import SearchItem from "./search-item";
 
 const Search = () => {
-  const classes = useStyles();
   const cards = useSelector(selectCards);
   const dispatch = useDispatch();
   const params = useSearchParams();
-  const [filterDrawerOpened, setFilterDrawer] = useState(true);
   const [detailDrawerID, setDetailsDrawer] = useState<null | string>(null);
   const { values: breakPoints } = useTheme().breakpoints;
+  const [filterDrawerOpened, setFilterDrawer] = useState(
+    window.innerWidth > breakPoints.sm
+  );
+  const classes = useStyles();
 
   useDeepCompareEffect(() => {
     dispatch(hydrateParamState(params));
@@ -93,45 +91,9 @@ const Search = () => {
         </div>
         <h3>res</h3>
         <div className={classes.resultsWrapper}>
-          {cards.map(c => {
-            return (
-              <Paper
-                onClick={() => {
-                  setDetailsDrawer(c.card.id);
-                }}
-                className={classes.cardItem}
-                key={c.card.id}
-                elevation={0}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row"
-                  }}
-                >
-                  <Avatar
-                    className={classes.itemAvatar}
-                    variant="rounded"
-                    src={c.card.imageUrl}
-                  />
-                  <Typography variant="h6" component="h6">
-                    {c.card.name}
-                    {c.price.tag}
-                  </Typography>
-                </div>
-                <div>{c.card.types}</div>
-                <div>{c.card.series}</div>
-                <Button
-                  onClick={e => {
-                    e.stopPropagation();
-                    dispatch(addToBaket({ id: c.card.id }));
-                  }}
-                >
-                  add
-                </Button>
-              </Paper>
-            );
-          })}
+          {cards.map(c => (
+            <SearchItem card={c} key={c.card.id} onClick={setDetailsDrawer} />
+          ))}
         </div>
       </main>
     </div>
