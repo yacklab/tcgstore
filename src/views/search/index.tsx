@@ -14,6 +14,9 @@ import { hydrateParamState } from "../../app/store/slices/search-params";
 import { appRoutes } from "../../app/router/routes";
 import { Link } from "react-router-dom";
 import SearchItem from "./search-item";
+import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
+import CloseIcon from "@material-ui/icons/Close";
 
 const Search = () => {
   const cards = useSelector(selectCards);
@@ -54,7 +57,12 @@ const Search = () => {
         }}
       >
         <div style={{ position: "absolute", right: 10, top: 0 }}>
-          <button onClick={() => setFilterDrawer(false)}>hide</button>
+          <IconButton
+            className={classes.filterDrawerControls}
+            onClick={() => setFilterDrawer(false)}
+          >
+            <CloseIcon />
+          </IconButton>
         </div>
         <Filters />
       </Drawer>
@@ -78,18 +86,15 @@ const Search = () => {
         )}
       </Drawer>
       <main className={classes.content}>
-        <div
-          style={{
-            position: "absolute",
-            right: 0,
-            top: 0,
-            left: 0,
-            textAlign: "center"
-          }}
+        <Button
+          color="primary"
+          variant="outlined"
+          style={{ margin: "8px auto" }}
+          className={classes.filterDrawerControls}
+          onClick={() => setFilterDrawer(true)}
         >
-          <button onClick={() => setFilterDrawer(true)}>show</button>
-        </div>
-        <h3>res</h3>
+          Filters
+        </Button>
         <div className={classes.resultsWrapper}>
           {cards.map(c => (
             <SearchItem card={c} key={c.card.id} onClick={setDetailsDrawer} />

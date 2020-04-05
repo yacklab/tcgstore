@@ -28,7 +28,12 @@ export const useStyles = makeStyles(theme => {
         display: "none"
       }
     },
-
+    filterDrawerControls: {
+      display: "none",
+      [theme.breakpoints.down("xs")]: {
+        display: "block"
+      }
+    },
     filterDrawerPaper: {
       position: "fixed",
       top: theme.spacing(8),
