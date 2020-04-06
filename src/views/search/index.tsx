@@ -9,18 +9,20 @@ import useDeepCompareEffect from "../../hooks/use-deep-compare-effect";
 import useSearchParams from "./use-search-params";
 
 import CardDetail from "../../containers/card-detail";
-import { useTheme, Box } from "@material-ui/core";
+import { useTheme, Box, Grid } from "@material-ui/core";
 import { hydrateParamState } from "../../app/store/slices/search-params";
 import { appRoutes } from "../../app/router/routes";
-import { Link } from "react-router-dom";
 import SearchItem from "./search-item";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import Pagination from "../../containers/pagination";
+import OpenInNewIcon from "@material-ui/icons/OpenInNew";
+import { useHistory } from "react-router-dom";
 
 const Search = () => {
   const cards = useSelector(selectCards);
+  const history = useHistory();
   const dispatch = useDispatch();
   const params = useSearchParams();
   const [detailDrawerID, setDetailsDrawer] = useState<null | string>(null);
@@ -82,9 +84,23 @@ const Search = () => {
         {detailDrawerID && (
           <React.Fragment>
             <Box>
-              <IconButton onClick={() => setDetailsDrawer(null)}>
-                <CloseIcon />
-              </IconButton>
+              <Grid container direction="row">
+                <Grid item>
+                  <IconButton onClick={() => setDetailsDrawer(null)}>
+                    <CloseIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    color="primary"
+                    onClick={() =>
+                      history.push(appRoutes.details.getPath(detailDrawerID))
+                    }
+                  >
+                    <OpenInNewIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
             </Box>
             <CardDetail id={detailDrawerID} />
           </React.Fragment>
