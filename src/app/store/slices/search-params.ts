@@ -41,6 +41,7 @@ export const slice = createSlice({
       state: ISearchParams,
       action: PayloadAction<IQuery[]>
     ) => {
+      state.params = {};
       state.params.page = 1;
       action.payload.forEach(query => {
         state.params[query.name] = query.value;

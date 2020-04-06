@@ -22,7 +22,7 @@ interface IBasketItemProps {
 }
 const useStyles = makeStyles(theme =>
   createStyles({
-    root: {
+    basketItemWrapper: {
       width: "100%",
       padding: theme.spacing(1),
       backgroundColor: theme.palette.background.paper
@@ -50,7 +50,7 @@ const BasketItem: React.FunctionComponent<IBasketItemProps> = ({
   };
   return (
     <Grid
-      className={classes.root}
+      className={classes.basketItemWrapper}
       container
       direction="row"
       justify="space-between"

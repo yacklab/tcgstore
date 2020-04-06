@@ -14,7 +14,7 @@ import { Typography, createStyles, makeStyles, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles(theme =>
   createStyles({
-    root: {
+    basketWrapper: {
       padding: theme.spacing(2)
     }
   })
@@ -26,7 +26,7 @@ const Basket = () => {
   const { totalPriceTag } = useSelector(selectPrice);
   const classes = useStyles();
   return (
-    <Container maxWidth="md" className={classes.root}>
+    <Container maxWidth="md" className={classes.basketWrapper}>
       <Typography variant="h5">Your Cart</Typography>
       <List>
         {basketContent.map(c => {

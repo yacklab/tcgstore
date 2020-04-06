@@ -48,7 +48,7 @@ const Filters = () => {
           <RarityFilter />
         </ExpansionPanelDetails>
       </ExpansionPanel>
-      <ExpansionPanel elevation={0}>
+      <ExpansionPanel elevation={0} defaultExpanded>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.panelHeading}>Subtype</Typography>
         </ExpansionPanelSummary>

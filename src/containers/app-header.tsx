@@ -50,7 +50,9 @@ const AppHeader = () => {
             <Badge badgeContent={basketCount} color="primary">
               <ShoppingBasketIcon />
             </Badge>
-            <Typography>{totalPriceTag}</Typography>
+            <Typography variant="caption" style={{ margin: "0 4px" }}>
+              {totalPriceTag}
+            </Typography>
           </IconButton>
         </Toolbar>
       </AppBar>

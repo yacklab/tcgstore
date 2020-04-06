@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TextField, { TextFieldProps } from "@material-ui/core/TextField";
-import { useInputValue } from "../hooks/use-input-value";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectNameParam,

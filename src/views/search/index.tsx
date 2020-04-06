@@ -9,7 +9,7 @@ import useDeepCompareEffect from "../../hooks/use-deep-compare-effect";
 import useSearchParams from "./use-search-params";
 
 import CardDetail from "../../containers/card-detail";
-import { useTheme } from "@material-ui/core";
+import { useTheme, Box } from "@material-ui/core";
 import { hydrateParamState } from "../../app/store/slices/search-params";
 import { appRoutes } from "../../app/router/routes";
 import { Link } from "react-router-dom";
@@ -54,7 +54,7 @@ const Search = () => {
           paper: clsx(
             classes.filterDrawerPaper,
             !filterDrawerOpened && classes.filterDrawerPaperClose
-          )
+          ),
         }}
       >
         <div style={{ position: "absolute", right: 10, top: 0 }}>
@@ -76,12 +76,16 @@ const Search = () => {
           paper: clsx(
             classes.detailsDrawerPaper,
             !detailDrawerID && classes.detailsDrawerPaperClose
-          )
+          ),
         }}
       >
         {detailDrawerID && (
           <React.Fragment>
-            <Link to={appRoutes.details.getPath(detailDrawerID)}>go</Link>
+            <Box>
+              <IconButton onClick={() => setDetailsDrawer(null)}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
             <CardDetail id={detailDrawerID} />
           </React.Fragment>
         )}
@@ -97,7 +101,7 @@ const Search = () => {
           Filters
         </Button>
         <div className={classes.resultsWrapper}>
-          {cards.map(c => (
+          {cards.map((c) => (
             <SearchItem card={c} key={c.card.id} onClick={setDetailsDrawer} />
           ))}
         </div>
